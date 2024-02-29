@@ -33,7 +33,6 @@ class WeatherTimestampPolicyFactory<K> : TimestampPolicyFactory<K, String> {
 
         override fun getWatermark(ctx: PartitionContext): Instant {
             val prevWatermark = previousWatermark.orElse(Instant.EPOCH)
-            // watermark is monotonically increasing
             return if (lastTimestamp.isAfter(prevWatermark)) lastTimestamp else prevWatermark
         }
     }
